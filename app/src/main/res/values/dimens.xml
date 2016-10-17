@@ -1,0 +1,179 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="card_margin">5dp</dimen>
+    <dimen name="card_height">50dp</dimen>
+
+    <!--ToDo: For Layout Landscan-->
+
+    <!--Main Linear Layout For landscap activity_car_number && activity_driver_review_screen-->
+    <dimen name="margin_left_main">35dp</dimen>
+    <dimen name="margin_right_main">35dp</dimen>
+    <dimen name="margin_top_splashscreen">50dp</dimen>
+
+    <!--Main Spinner For landscap activity_car_number && activity_driver_review_screen-->
+    <dimen name="margin_left_spinner">20dp</dimen>
+    <dimen name="margin_right_spinner">20dp</dimen>
+    <dimen name="margin_top_spinner">15dp</dimen>
+
+    <!--Main Sub Linear Layout For landscap activity_car_number && activity_driver_review_screen-->
+    <dimen name="margin_top_sublinear">10dp</dimen>
+
+    <!--Main EditText & Imageview For landscap activity_car_number && activity_driver_review_screen-->
+    <dimen name="margin_left_edittextblack">15dp</dimen>
+    <dimen name="margin_right_edittextblack">15dp</dimen>
+    <dimen name="margin_top_edittextblack">5dp</dimen>
+    <dimen name="edittext_sizeblack">15sp</dimen>
+    <dimen name="margin_left_imageblack">50dp</dimen>
+
+    <dimen name="margin_left_edittextbold">25dp</dimen>
+    <dimen name="margin_right_edittextbold">20dp</dimen>
+    <dimen name="edittext1_size">17sp</dimen>
+    <dimen name="margin_top_edittextbold">10dp</dimen>
+
+    <!--Main RatinBar For landscap activity_car_number && activity_driver_review_screen-->
+    <dimen name="margin_left_ratingbar">20dp</dimen>
+    <dimen name="margin_right_ratingbar">20dp</dimen>
+
+
+    <!--Main Linear Layout For landscap activity_feed-->
+    <dimen name="margin_top_feedmain">13dp</dimen>
+
+    <!--Main Edittext For landscap activity_feed -->
+    <dimen name="margin_left_textviewbold">80dp</dimen>
+    <dimen name="margin_top_textviewbold">15dp</dimen>
+    <dimen name="textviewbold_size">30dp</dimen>
+
+    <!--Main Sub Linear Layout For landscap activity_feed-->
+    <dimen name="margin_top_feedsublinear">10dp</dimen>
+    <dimen name="margin_left_feedsublinear">20dp</dimen>
+    <dimen name="margin_right_feedsublinear">20dp</dimen>
+    <dimen name="margin_bottom_feedsublinear">10dp</dimen>
+    <dimen name="margin_top_feedsublinear2">5dp</dimen>
+
+    <!--Main Inputtypedesign For landscap activity_feed-->
+    <dimen name="margin_left_textinput">25dp</dimen>
+    <dimen name="margin_right_textinput">25dp</dimen>
+    <dimen name="margin_left_feedsublinear3">50dp</dimen>
+    <dimen name="margin_right_feedsublinear3">50dp</dimen>
+    <dimen name="textviewblack_size">14dp</dimen>
+    <dimen name="button_textsize">16dp</dimen>
+
+    <!--Main Button For landscap activity_feed-->
+    <dimen name="margin_top_button">20dp</dimen>
+    <dimen name="margin_left_button">55dp</dimen>
+    <dimen name="margin_right_button">55dp</dimen>
+    <dimen name="margin_buttom_button">20dp</dimen>
+    <dimen name="padding_button">20dp</dimen>
+    <dimen name="elevation_button">5dp</dimen>
+
+    <!--Main Linear Layout For landscap activity_login-->
+    <dimen name="margin_top_loginlinear">100dp</dimen>
+    <dimen name="margin_left_loginlinear">35dp</dimen>
+    <dimen name="margin_right_loginlinear">35dp</dimen>
+
+    <!--Main Inputtypedesign For landscap activity_login-->
+    <dimen name="margin_right_logintextinput">20dp</dimen>
+    <dimen name="margin_left_logintextinput">20dp</dimen>
+    <dimen name="margin_top_logintextinput">20dp</dimen>
+
+    <!--Main Button For landscap activity_login-->
+    <dimen name="margin_top_loginbutton">25dp</dimen>
+    <dimen name="margin_right_loginbutton">25dp</dimen>
+    <dimen name="margin_left_loginbutton">25dp</dimen>
+
+    <!--Main Linear Layout For landscap activity_ger_review-->
+    <dimen name="getreview_textsize">22dp</dimen>
+    <dimen name="margin_left_textboldgetreview">80dp</dimen>
+    <dimen name="margin_top_textboldgetreview">25dp</dimen>
+    <dimen name="margin_top_getviewbutton">75dp</dimen>
+    <dimen name="margin_left_getviewbutton">50dp</dimen>
+    <dimen name="margin_right_getviewbutton">50dp</dimen>
+
+    <!--Main Button For landscap activity_get_review-->
+    <dimen name="margin_top_getreviewbutton">20dp</dimen>
+    <dimen name="margin_buttom_getreviewbutton">20dp</dimen>
+
+    <!--Toolbar-->
+    <dimen name="toolbar_textsize">18dp</dimen>
+
+    <!--Main Linear Layout For landscap trip_layout-->
+    <dimen name="margin_left_triplayout">50dp</dimen>
+    <dimen name="textsize_triplayout">20dp</dimen>
+
+
+    <!--ToDo: For Layout Portrait-->
+
+    <!--Main Spinner For Portrait activity_car_number && activity_driver_review_screen-->
+    <dimen name="spinner_left_car">20dp</dimen>
+    <dimen name="spinner_right_car">20dp</dimen>
+    <dimen name="spinner_top_car">15dp</dimen>
+
+    <!--Main Linear Layout For Portrait activity_car_number-->
+    <dimen name="margin_left_car">20dp</dimen>
+    <dimen name="margin_right_car">5dp</dimen>
+    <dimen name="margin_top_car">10dp</dimen>
+
+    <!--Main EditText & TextView For Portrait activity_car_number-->
+    <dimen name="margin_left_etblackcarnumber">20dp</dimen>
+    <dimen name="margin_right_etblackcarnumber">20dp</dimen>
+    <dimen name="margin_top_etblackcarnumber">5dp</dimen>
+
+    <dimen name="margin_left_tvblackcarnumber">20dp</dimen>
+    <dimen name="margin_right_tvblackcarnumber">20dp</dimen>
+    <dimen name="margin_top_tvblackcarnumber">10dp</dimen>
+
+    <!--Main RatingBar For Portrait activity_car_number-->
+    <dimen name="rating_margin_left">15dp</dimen>
+    <dimen name="rating_margin_right">20dp</dimen>
+
+    <!--Main RatingBar For Portrait activity_feed-->
+    <dimen name="margin_left_tvboldfeed">20dp</dimen>
+    <dimen name="margin_top_tvboldfeed">15dp</dimen>
+    <dimen name="textsize_tvboldfeed">20dp</dimen>
+    <dimen name="textsize_tvblackfeed">14dp</dimen>
+
+    <!--Main Linear Layout For Portrait activity_feed-->
+    <dimen name="margin_buttom_feed">10dp</dimen>
+    <dimen name="margin_top_feed">10dp</dimen>
+    <dimen name="margin_top_sublinearfeed">5dp</dimen>
+    <dimen name="margin_left_linearfeed">25dp</dimen>
+    <dimen name="margin_top_linearfeed">10dp</dimen>
+
+    <!--Main textinput For Portrait activity_feed-->
+    <dimen name="margin_left_textinputfeed">15dp</dimen>
+    <dimen name="margin_right_textinputfeed">15dp</dimen>
+    <dimen name="margin_left_blacktextfeed">2dp</dimen>
+    <dimen name="margin_left_etfeed">10dp</dimen>
+
+    <!--Main Button For Portrait activity_feed-->
+    <dimen name="margin_top_feedbutton">10dp</dimen>
+    <dimen name="margin_left_feedbutton">28dp</dimen>
+    <dimen name="margin_right_feedbutton">20dp</dimen>
+    <dimen name="margin_bottom_feedbutton">10dp</dimen>
+
+    <!--Main activity_login For Portrait activity_feed-->
+    <dimen name="margin_top_login">30dp</dimen>
+    <dimen name="margin_left_login">40dp</dimen>
+    <dimen name="margin_right_login">40dp</dimen>
+
+    <!--Main fragment_get_review For Portrait activity_feed-->
+    <dimen name="margin_top_lineargetreview">75dp</dimen>
+
+    <!--Main fragment_get_review Buttton For Portrait activity_feed-->
+    <dimen name="margin_top_buttongetreview">20dp</dimen>
+    <dimen name="margin_left_buttongetreview">40dp</dimen>
+    <dimen name="margin_right_buttongetreview">40dp</dimen>
+    <dimen name="margin_buttom_buttongetreview">20dp</dimen>
+
+    <!--Main trip_layout For Portrait activity_feed-->
+    <dimen name="textsize_trip">20dp</dimen>
+    <dimen name="margin_left_trip">20dp</dimen>
+    <dimen name="margin_top_no_internet">70dp</dimen>
+
+</resources>

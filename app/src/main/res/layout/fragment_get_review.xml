@@ -1,0 +1,78 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/getreviewfragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="feedapp.app.com.feedapp.GetReviewFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <CustomFont.MyTextViewBold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="25dp"
+            android:text="GET REVIEWS"
+            android:textColor="@color/titleText"
+            android:textSize="@dimen/textsize_tvboldfeed" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_lineargetreview"
+            android:orientation="vertical"></LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/mButton_carnumberreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_buttom_buttongetreview"
+                    android:layout_marginLeft="@dimen/margin_left_buttongetreview"
+                    android:layout_marginRight="@dimen/margin_right_buttongetreview"
+                    android:layout_marginTop="@dimen/margin_top_buttongetreview"
+                    android:background="@drawable/ripple_effect2"
+                    android:elevation="@dimen/elevation_button"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_button"
+                    android:text="CAR NUMBER WISE REVIEWS"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/button_textsize" />
+
+                <Button
+                    android:id="@+id/mButton_drivernamereview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_buttom_buttongetreview"
+                    android:layout_marginLeft="@dimen/margin_left_buttongetreview"
+                    android:layout_marginRight="@dimen/margin_right_buttongetreview"
+                    android:layout_marginTop="@dimen/margin_top_buttongetreview"
+                    android:background="@drawable/ripple_effect"
+                    android:elevation="@dimen/elevation_button"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_button"
+                    android:text="DRIVER NAME WISE REVIEWS"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/button_textsize" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</FrameLayout>

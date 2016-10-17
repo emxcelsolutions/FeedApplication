@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightPista"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left_loginlinear"
+            android:layout_marginRight="@dimen/margin_right_loginlinear"
+            android:layout_marginTop="@dimen/margin_top_loginlinear"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/ti_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/margin_left_logintextinput"
+                    android:layout_marginRight="@dimen/margin_right_logintextinput"
+                    android:layout_marginTop="@dimen/margin_top_logintextinput"
+                    android:elevation="@dimen/elevation_button">
+
+                    <CustomFont.MyEditTextBlack
+                        android:id="@+id/et_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ENTER CONTACT NUMBER"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:textSize="@dimen/edittext_sizeblack" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/mButton_login"
+                    android:layout_width="450dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ti_contact"
+                    android:layout_marginLeft="@dimen/margin_left_loginbutton"
+                    android:layout_marginRight="@dimen/margin_right_loginbutton"
+                    android:layout_marginTop="@dimen/margin_top_loginbutton"
+                    android:background="@drawable/ripple_effect"
+                    android:elevation="@dimen/elevation_button"
+                    android:padding="@dimen/padding_button"
+                    android:text="SUBMIT"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/button_textsize" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
