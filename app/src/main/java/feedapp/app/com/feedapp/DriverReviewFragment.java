@@ -38,7 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DriverReviewFragment extends Fragment {
-
+//ToDo Variable Declaration Here
     View mView;
 
     EditText mOverallFeedback;
