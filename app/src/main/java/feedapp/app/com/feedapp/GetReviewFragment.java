@@ -40,8 +40,8 @@ public class GetReviewFragment extends Fragment {
                 CarReviewFragment mCarReviewFragment = new CarReviewFragment();
                 FragmentManager mFragmentManager = getFragmentManager();
                 FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-                mFragmentTransaction.replace(R.id.content_main, mCarReviewFragment);
-                mFragmentTransaction.addToBackStack(null);
+                mFragmentTransaction.replace(R.id.content_main, mCarReviewFragment,"carReviewFragment");
+              //  mFragmentTransaction.addToBackStack("getReviewFragment");
                 mFragmentTransaction.commit();
             }
         });
@@ -54,13 +54,14 @@ public class GetReviewFragment extends Fragment {
                 DriverReviewFragment mDriverReviewFragment = new DriverReviewFragment();
                 FragmentManager mFragmentManager = getFragmentManager();
                 FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-                mFragmentTransaction.replace(R.id.content_main, mDriverReviewFragment);
-                mFragmentTransaction.addToBackStack(null);
+                mFragmentTransaction.replace(R.id.content_main, mDriverReviewFragment,"driverReviewFragment");
+               // mFragmentTransaction.addToBackStack("getReviewFragment");
                 mFragmentTransaction.commit();
             }
         });
 
         return view;
     }
+
 
 }

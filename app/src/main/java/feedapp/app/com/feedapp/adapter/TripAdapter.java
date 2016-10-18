@@ -49,6 +49,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
                 FragmentManager mFragmentManager=((FragmentActivity) mContext).getSupportFragmentManager();
                 FragmentTransaction mFragmentTransaction=mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.content_main,mFeedbackFragment);
+              //  mFragmentTransaction.addToBackStack("tripIdFragment");
                 mFragmentTransaction.commit();
             }
         });

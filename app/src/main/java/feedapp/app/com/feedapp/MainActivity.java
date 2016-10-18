@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity
             GetReviewFragment getReviewFragment = new GetReviewFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.content_main, getReviewFragment);
-            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.replace(R.id.content_main, getReviewFragment,"getReviewFragment");
+          //  fragmentTransaction.addToBackStack("tripIdFragment");
             fragmentTransaction.commit();
         }
 
@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity
         mTripFragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content_main, mTripFragment);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.content_main, mTripFragment,"tripIdFragment");
+        //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
