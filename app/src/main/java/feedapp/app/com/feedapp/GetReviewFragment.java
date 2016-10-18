@@ -41,6 +41,7 @@ public class GetReviewFragment extends Fragment {
                 FragmentManager mFragmentManager = getFragmentManager();
                 FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.content_main, mCarReviewFragment);
+                mFragmentTransaction.addToBackStack(null);
                 mFragmentTransaction.commit();
             }
         });
@@ -54,6 +55,7 @@ public class GetReviewFragment extends Fragment {
                 FragmentManager mFragmentManager = getFragmentManager();
                 FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.content_main, mDriverReviewFragment);
+                mFragmentTransaction.addToBackStack(null);
                 mFragmentTransaction.commit();
             }
         });
