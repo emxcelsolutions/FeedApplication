@@ -28,32 +28,36 @@ import feedapp.app.com.feedapp.model.ClientDetailList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    RecyclerView mRecyclerView;
-    Bundle mBundle;
+
+    /*ToDo: Variable Declaration */
+    private RecyclerView mRecyclerView;
+    private Bundle mBundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*ToDo: toolbar initialization here*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*ToDo: Drawerlayout initialization here*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        /*ToDo: NavigationView initialization here*/
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mBundle=getIntent().getExtras();
+        mBundle = getIntent().getExtras();
 
+        /*TODO initTripFragment called here*/
         initTripFragment(mBundle);
 
-        /*mRecyclerView= (RecyclerView) findViewById(R.id.mRecyclerView_tripid);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(new TripAdapter(this,LoginActivity.mClientDetailList));*/
     }
 
     @Override
@@ -66,27 +70,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -96,13 +79,12 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_tripid) {
             initTripFragment(mBundle);
-            // Handle the camera action
         } else if (id == R.id.nav_getreview) {
             //TODO get review fragment called here
-            GetReviewFragment getReviewFragment=new GetReviewFragment();
-            FragmentManager fragmentManager=getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.content_main,getReviewFragment);
+            GetReviewFragment getReviewFragment = new GetReviewFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.content_main, getReviewFragment);
             fragmentTransaction.commit();
         }
 
@@ -110,15 +92,15 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void initTripFragment(Bundle bundle){
-        //TODO trip fragment called here
-        TripFragment mTripFragment=new TripFragment();
+
+    //TODO trip fragment called here
+    private void initTripFragment(Bundle bundle) {
+        TripFragment mTripFragment = new TripFragment();
         mTripFragment.setArguments(bundle);
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content_main,mTripFragment);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, mTripFragment);
         fragmentTransaction.commit();
     }
-
 
 }

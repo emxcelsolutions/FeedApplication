@@ -18,7 +18,9 @@ import retrofit2.http.QueryMap;
  */
 
 public interface APIService {
-    //Todo service call getTripIdByContactNo
+
+    //Todo interface for accessing api using retrofit
+
     @GET("/endsystem/getTripIdByContactNo")
     Call<ClientInfo> getClientInfoCall(
             @QueryMap Map<String,String> params

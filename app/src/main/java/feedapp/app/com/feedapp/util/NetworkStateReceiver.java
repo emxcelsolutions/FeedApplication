@@ -15,6 +15,8 @@ import feedapp.app.com.feedapp.NoInternetFragment;
  */
 
 public class NetworkStateReceiver extends BroadcastReceiver {
+
+    /*ToDo: This class helps to detect internet for every screen in background*/
     public void onReceive(Context context, Intent intent) {
 
         Log.d("aaa","Network connectivity change");

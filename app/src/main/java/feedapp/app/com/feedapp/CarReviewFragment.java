@@ -40,29 +40,29 @@ import retrofit2.Response;
 
 public class CarReviewFragment extends Fragment {
 
-    View mView;
+    /*ToDo: Variable Declaration */
+    private View mView;
+    private EditText mOverallFeedback;
+    private EditText mFromdate;
+    private EditText mTodate;
+    private ImageView mSerach;
+    private RatingBar mRbDriving;
+    private RatingBar mRbDriverBehaviour;
+    private RatingBar mRbDriveronPerfo;
+    private RatingBar mRbCarCondition;
+    private RatingBar mRbOverallService;
+    private RatingBar mRbAverageRating;
+    private Spinner mSpinner_car;
 
-    EditText mOverallFeedback;
-    EditText mFromdate;
-    EditText mTodate;
-    ImageView mSerach;
-    RatingBar mRbDriving;
-    RatingBar mRbDriverBehaviour;
-    RatingBar mRbDriveronPerfo;
-    RatingBar mRbCarCondition;
-    RatingBar mRbOverallService;
-    RatingBar mRbAverageRating;
-    Spinner mSpinner_car;
-
-    ScrollView mScrollView;
+    private ScrollView mScrollView;
     private String baseURL = "http://192.227.159.120:8080/";
-    String fdate, tdate;
-    boolean touch = false;
-    int total_trips;
+    private String fdate, tdate;
+    private boolean touch = false;
+    private int total_trips;
 
-    APIService mApiService;
-    List<CarDetailList> mCarReviewList = new ArrayList<>();
-    List<FeedbackList> mFeedbackList;
+    private APIService mApiService;
+    private List<CarDetailList> mCarReviewList = new ArrayList<>();
+    private List<FeedbackList> mFeedbackList;
 
     private SimpleDateFormat dateFormatter;
     private DatePickerDialog fromDatePickerDialog;
@@ -78,7 +78,7 @@ public class CarReviewFragment extends Fragment {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_car_review, container, false);
 
-        //setupRetrofit();
+        /*ToDo: settingup retrofit with api */
         mApiService = LoginActivity.setupRetrofit(baseURL);
 
         Call<CarTypeByData> mCall = mApiService.getCarTypeByDataCall();
@@ -219,6 +219,7 @@ public class CarReviewFragment extends Fragment {
         }
     }
 
+    /*ToDo: logic for creating overall feedback*/
     private void setOverallFeedback(float average) {
         if (average <= 1) {
             mOverallFeedback.setText("VERY BAD");
@@ -315,38 +316,4 @@ public class CarReviewFragment extends Fragment {
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
-
- /*   public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putIntArray("SCROLL_POSITION",
-                new int[]{mScrollView.getScrollX(), mScrollView.getScrollY()});
-    }*/
-
-   /* @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if(savedInstanceState!=null) {
-            final int[] position = savedInstanceState.getIntArray("SCROLL_POSITION");
-            if (position != null)
-                mScrollView.post(new Runnable() {
-                    public void run() {
-                        mScrollView.scrollTo(position[0], position[1]);
-                    }
-                });
-        }
-    }*/
-
- /*   @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState!=null) {
-            final int[] position = savedInstanceState.getIntArray("SCROLL_POSITION");
-            if (position != null)
-                mScrollView.post(new Runnable() {
-                    public void run() {
-                        mScrollView.scrollTo(position[0], position[1]);
-                    }
-                });
-        }
-    }*/
 }

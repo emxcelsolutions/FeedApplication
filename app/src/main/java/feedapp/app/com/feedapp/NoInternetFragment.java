@@ -13,7 +13,7 @@ import android.widget.TextView;
  */
 public class NoInternetFragment extends FragmentActivity {
 
-TextView mTextView;
+    /*ToDo: This class used for when internet not detect*/
     public NoInternetFragment() {
         // Required empty public constructor
     }
@@ -24,6 +24,4 @@ TextView mTextView;
         setContentView(R.layout.fragment_no_internet);
 
     }
-
-
 }

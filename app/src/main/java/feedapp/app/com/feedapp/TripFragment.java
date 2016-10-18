@@ -12,15 +12,13 @@ import android.view.ViewGroup;
 import feedapp.app.com.feedapp.adapter.TripAdapter;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class TripFragment extends Fragment {
 
-    RecyclerView mRecyclerView;
+    /*ToDo: Variable Declaration */
+   private RecyclerView mRecyclerView;
 
     public TripFragment() {
-        // Required empty public constructor
+
     }
 
 

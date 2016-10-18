@@ -38,33 +38,34 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DriverReviewFragment extends Fragment {
-    View mView;
 
-    EditText mOverallFeedback;
-    EditText mFromdate;
-    EditText mTodate;
-    String fdate,tdate;
-    ImageView mSearch;
-    Spinner mSpinner;
-    RatingBar mRbDriving;
-    RatingBar mRbDriverBehaviour;
-    RatingBar mRbDriveronPerfo;
-    RatingBar mRbCarCondition;
-    RatingBar mRbOverallService;
-    RatingBar mRbAverageRating;
+    /*ToDo: Variable Declaration */
+    private View mView;
+    private EditText mOverallFeedback;
+    private EditText mFromdate;
+    private EditText mTodate;
+    private String fdate,tdate;
+    private ImageView mSearch;
+    private Spinner mSpinner;
+    private RatingBar mRbDriving;
+    private RatingBar mRbDriverBehaviour;
+    private RatingBar mRbDriveronPerfo;
+    private RatingBar mRbCarCondition;
+    private RatingBar mRbOverallService;
+    private RatingBar mRbAverageRating;
 
-    String baseURL = "http://192.227.159.120:8080/";
-    APIService mApiService;
+    private String baseURL = "http://192.227.159.120:8080/";
+    private APIService mApiService;
 
-    List<FeedbackList> mFeedbackList;
-    List<DriverDetailList> mDriverReviewList = new ArrayList<>();
+    private  List<FeedbackList> mFeedbackList;
+    private  List<DriverDetailList> mDriverReviewList = new ArrayList<>();
 
-    boolean touch=false;
-    int total_trips;
+    private boolean touch=false;
+    private  int total_trips;
 
-    SimpleDateFormat dateFormatter;
-    DatePickerDialog fromDatePickerDialog;
-    DatePickerDialog toDatePickerDialog;
+    private SimpleDateFormat dateFormatter;
+    private DatePickerDialog fromDatePickerDialog;
+    private DatePickerDialog toDatePickerDialog;
 
     public DriverReviewFragment() {
         // Required empty public constructor
@@ -77,7 +78,7 @@ public class DriverReviewFragment extends Fragment {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_driver_review, container, false);
 
-        //setupRetrofit();
+        /*ToDo: settingup retrofit with api */
         mApiService = LoginActivity.setupRetrofit(baseURL);
         Call<DriverTypeByData> mCall = mApiService.getDriverTypeByDataCall();
         Log.e("url", "" + mCall.request().url());
@@ -200,6 +201,7 @@ public class DriverReviewFragment extends Fragment {
         return mView;
     }
 
+    /*ToDo: logic for creating overall feedback*/
     private void setOverallFeedback(float average) {
         if(average<=1){
             mOverallFeedback.setText("VERY BAD");

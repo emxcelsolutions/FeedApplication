@@ -33,7 +33,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FeedbackFragment extends Fragment {
-    View mView;
+
+    /*ToDo: Variable Declaration */
+    private View mView;
     private EditText medittext_jdate, medittext_jplace, medittext_drivername, medittext_contactnumber, medittext_carno, medittext_carname, medittext_remark;
     private RatingBar mrating_drivingstar, mrating_driverbehaviour, mrating_driverperform, mrating_carcandition, mrating_overservice;
     private Button mButton_submit;
@@ -46,16 +48,16 @@ public class FeedbackFragment extends Fragment {
     private DriverDetail driverDetail;
     private String remarks;
     private String baseURL="http://192.227.159.120:8080/";
-    float driverbehaviourRating;
-    float drivingStarRating;
-    float driverPerformanceRating;
-    float carConditionRating;
-    float overallServiceRating;
-    APIService mApiService;
-    TextView mTextViewToolbar;
-    ImageView mImageView;
-    ScrollView mScrollView;
-    String mFeedbackList;/*=new ArrayList<>();*/
+    private float driverbehaviourRating;
+    private float drivingStarRating;
+    private float driverPerformanceRating;
+    private float carConditionRating;
+    private float overallServiceRating;
+    private  APIService mApiService;
+    private TextView mTextViewToolbar;
+    private ImageView mImageView;
+    private ScrollView mScrollView;
+    private String mFeedbackList;/*=new ArrayList<>();*/
     private String feed_response;
     private String tripID;
 
@@ -141,6 +143,7 @@ public class FeedbackFragment extends Fragment {
         return mView;
     }
 
+    /*ToDo: method for setting up rertrofit*/
     private APIService setupRetrofit(String url) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)

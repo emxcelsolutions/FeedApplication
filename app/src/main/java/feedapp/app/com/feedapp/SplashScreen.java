@@ -28,6 +28,7 @@ public class SplashScreen extends Activity {
         };
         splashThread.start();
 
+        /*ToDo: Applying animation on Splash screen*/
         Animation anim= AnimationUtils.loadAnimation(this,R.anim.move_up);
         ImageView imageView= (ImageView) findViewById(R.id.splashImageView);
         imageView.setAnimation(anim);

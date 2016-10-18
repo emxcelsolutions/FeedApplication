@@ -34,15 +34,17 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
-    TextInputLayout mTextInputLayout;
-    EditText mEditText_Contact;
-    String contact;
-    Button mButton_Login;
-    APIService mAPIService;
-    List<ClientDetailList> mClientDetailList=new ArrayList<>();
-    List<CarDetail> mCarDetailList=new ArrayList<>();
-    List<DriverDetail> mDriverDetailList=new ArrayList<>();
-    List<GuestDetail> mGuestDetailList=new ArrayList<>();
+
+    /*ToDo: Variable Declaration */
+    private TextInputLayout mTextInputLayout;
+    private EditText mEditText_Contact;
+    private String contact;
+    private Button mButton_Login;
+    private APIService mAPIService;
+    private List<ClientDetailList> mClientDetailList=new ArrayList<>();
+    private List<CarDetail> mCarDetailList=new ArrayList<>();
+    private List<DriverDetail> mDriverDetailList=new ArrayList<>();
+    private  List<GuestDetail> mGuestDetailList=new ArrayList<>();
     private String baseURL="http://192.227.159.120:8080/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +130,8 @@ public class LoginActivity extends AppCompatActivity {
         APIService mAPIService=mRetrofit.create(APIService.class);
         return mAPIService;
     }
+
+    /*ToDo: Networrk checking method*/
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
