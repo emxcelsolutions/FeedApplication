@@ -1,8 +1,13 @@
 package feedapp.app.com.feedapp;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +30,8 @@ import java.util.Map;
 import feedapp.app.com.feedapp.model.CarDetail;
 import feedapp.app.com.feedapp.model.ClientDetailList;
 import feedapp.app.com.feedapp.model.CarReviewFragmentResponse.DriverDetail;
+import feedapp.app.com.feedapp.model.ClientInfo;
+import feedapp.app.com.feedapp.model.GuestDetail;
 import feedapp.app.com.feedapp.model.feedbackresponse.FeedbackResponse;
 import feedapp.app.com.feedapp.service.APIService;
 import retrofit2.Call;
@@ -60,6 +68,9 @@ public class FeedbackFragment extends Fragment {
     private String mFeedbackList;/*=new ArrayList<>();*/
     private String feed_response;
     private String tripID;
+    private String contact;
+    private  List<GuestDetail> mGuestDetailList=new ArrayList<>();
+
 
     public FeedbackFragment() {
         // Required empty public constructor
@@ -72,17 +83,20 @@ public class FeedbackFragment extends Fragment {
         // Inflate the layout for this fragment
         mView=inflater.inflate(R.layout.fragment_feedback, container, false);
 
+        MainActivity.mImageView.setVisibility(View.VISIBLE);
+
         //TODO initialization method called here
         initialization();
 
         //TODO Getting lists from bundle
-        Bundle bundle=getArguments();
-        int position=bundle.getInt("position");
-        mClientDetailLists=bundle.getParcelableArrayList("ClientDetailList");
+        Bundle mBundle=getArguments();
+        contact=mBundle.getString("contact");
+        int position=mBundle.getInt("position");
+        mClientDetailLists=mBundle.getParcelableArrayList("ClientDetailList");
         mClientDetailList=mClientDetailLists.get(position);
-        mCarDetails=bundle.getParcelableArrayList("CarDetailList");
+        mCarDetails=mBundle.getParcelableArrayList("CarDetailList");
         carDetail=mCarDetails.get(position);
-        mDriverDetails=bundle.getParcelableArrayList("DriverDetailList");
+        mDriverDetails=mBundle.getParcelableArrayList("DriverDetailList");
         driverDetail=mDriverDetails.get(position);
 
         //TODO setting texts of trip details
@@ -126,10 +140,8 @@ public class FeedbackFragment extends Fragment {
 
                         try {
                             mFeedbackList=response.body().getStatus();
-                            Toast.makeText(getActivity(),"Response:"+mFeedbackList,Toast.LENGTH_SHORT).show();
-
                         }catch (Exception e) {
-
+                            Toast.makeText(getContext(), "Sorry... Something Went Wrong", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -138,6 +150,49 @@ public class FeedbackFragment extends Fragment {
 
                     }
                 });
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Successfull")
+                        .setMessage("Thank You For Your Valuable Feedback")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                mApiService = LoginActivity.setupRetrofit(baseURL);
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("contactNo", contact);
+                                Call<ClientInfo> mCall = mApiService.getClientInfoCall(params);
+                                Log.e("url", "" + mCall.request().url());
+                                mCall.enqueue(new Callback<ClientInfo>() {
+                                    @Override
+                                    public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
+                                        mClientDetailLists = response.body().getClientDetailList();
+                                        for (int i = 0; i < mClientDetailLists.size(); i++) {
+                                            mGuestDetailList.add(mClientDetailLists.get(i).getGuestDetail());
+                                            mCarDetails.add(mClientDetailLists.get(i).getCarDetail());
+                                            mDriverDetails.add(mClientDetailLists.get(i).getCarDetail().getDriverDetail());
+                                        }
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("contact",contact);
+                                        bundle.putParcelableArrayList("ClientDetailList", (ArrayList<? extends Parcelable>) mClientDetailLists);
+                                        bundle.putParcelableArrayList("GuestDetailList", (ArrayList<? extends Parcelable>) mGuestDetailList);
+                                        bundle.putParcelableArrayList("CarDetailList", (ArrayList<? extends Parcelable>) mCarDetails);
+                                        bundle.putParcelableArrayList("DriverDetailList", (ArrayList<? extends Parcelable>) mDriverDetails);
+                                        TripFragment mTripFragment = new TripFragment();
+                                        mTripFragment.setArguments(bundle);
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        fragmentTransaction.replace(R.id.content_main, mTripFragment);
+                                        MainActivity.current_fragment="Trip";
+                                        fragmentTransaction.commit();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ClientInfo> call, Throwable t) {
+
+                                    }
+                                });
+                            }
+                        })
+                        .show();
             }
         });
         return mView;
@@ -180,7 +235,6 @@ public class FeedbackFragment extends Fragment {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 drivingStarRating=v;
-                Toast.makeText(getContext(), "You have Select Star " + v, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -188,7 +242,6 @@ public class FeedbackFragment extends Fragment {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 driverbehaviourRating=v;
-                Toast.makeText(getContext(), "You have Select Star " + v, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -196,7 +249,6 @@ public class FeedbackFragment extends Fragment {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 driverPerformanceRating=v;
-                Toast.makeText(getContext(), "You have Select Star " + v, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -204,7 +256,6 @@ public class FeedbackFragment extends Fragment {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 carConditionRating=v;
-                Toast.makeText(getContext(), "You have Select Star " + v, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -212,7 +263,6 @@ public class FeedbackFragment extends Fragment {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 overallServiceRating=v;
-                Toast.makeText(getContext(), "You have Select Star " + v, Toast.LENGTH_SHORT).show();
             }
         });
     }

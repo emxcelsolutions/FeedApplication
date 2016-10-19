@@ -311,7 +311,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_left_blacktextfeed"
-                                android:text="4) CAR CONDITION"
+                                android:text="5) OVERALL SERVICE"
                                 android:textColor="@color/titleText"
                                 android:textSize="@dimen/textsize_tvblackfeed" />
 

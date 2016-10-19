@@ -8,7 +8,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
-
+    
     <ScrollView
         android:id="@+id/sv_clientReviewScreen"
         android:layout_width="match_parent"
@@ -105,6 +105,7 @@
                 android:numStars="5"
                 android:rating="0"
                 android:stepSize="0.1"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -126,6 +127,7 @@
                 android:numStars="5"
                 android:rating="0"
                 android:stepSize="0.1"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -147,6 +149,7 @@
                 android:numStars="5"
                 android:rating="0"
                 android:stepSize="0.1"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -168,6 +171,7 @@
                 android:numStars="5"
                 android:rating="0"
                 android:stepSize="0.1"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -187,6 +191,7 @@
                 android:layout_marginLeft="@dimen/rating_margin_left"
                 android:layout_marginRight="@dimen/rating_margin_right"
                 android:numStars="5"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:rating="0"
                 android:stepSize="0.1"
                 android:theme="@style/RatingBar" />
@@ -209,9 +214,9 @@
                 android:layout_marginRight="@dimen/rating_margin_right"
                 android:numStars="5"
                 android:rating="0"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:stepSize="0.1"
                 android:theme="@style/RatingBar" />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

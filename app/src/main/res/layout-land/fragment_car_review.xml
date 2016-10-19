@@ -109,6 +109,7 @@
                 android:numStars="5"
                 android:rating="0"
                 android:stepSize="0.1"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -130,6 +131,7 @@
                 android:numStars="5"
                 android:rating="0"
                 android:stepSize="0.1"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -151,6 +153,7 @@
                 android:numStars="5"
                 android:rating="0"
                 android:stepSize="0.1"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -172,6 +175,7 @@
                 android:numStars="5"
                 android:rating="0"
                 android:stepSize="0.1"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -193,6 +197,7 @@
                 android:numStars="5"
                 android:rating="0"
                 android:stepSize="0.1"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -214,6 +219,7 @@
                 android:numStars="5"
                 android:rating="0"
                 android:stepSize="0.1"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:theme="@style/RatingBar" />
         </LinearLayout>
     </ScrollView>

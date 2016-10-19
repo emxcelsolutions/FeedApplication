@@ -17,6 +17,7 @@ public class TripFragment extends Fragment {
     /*ToDo: Variable Declaration */
    private RecyclerView mRecyclerView;
 
+
     public TripFragment() {
 
     }
@@ -27,6 +28,8 @@ public class TripFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_trip, container, false);
+
+        MainActivity.mImageView.setVisibility(View.GONE);
 
         Bundle mBundle=getArguments();
 

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 /**
@@ -32,6 +33,8 @@ public class GetReviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_get_review, container, false);
 
+        MainActivity.mImageView.setVisibility(View.VISIBLE);
+
         //TODO car number review fragment called here
         mButton_carnumberreview = (Button) view.findViewById(R.id.mButton_carnumberreview);
         mButton_carnumberreview.setOnClickListener(new View.OnClickListener() {
@@ -40,8 +43,8 @@ public class GetReviewFragment extends Fragment {
                 CarReviewFragment mCarReviewFragment = new CarReviewFragment();
                 FragmentManager mFragmentManager = getFragmentManager();
                 FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-                mFragmentTransaction.replace(R.id.content_main, mCarReviewFragment,"carReviewFragment");
-              //  mFragmentTransaction.addToBackStack("getReviewFragment");
+                mFragmentTransaction.replace(R.id.content_main, mCarReviewFragment);
+                MainActivity.current_fragment="Car Review";
                 mFragmentTransaction.commit();
             }
         });
@@ -54,8 +57,8 @@ public class GetReviewFragment extends Fragment {
                 DriverReviewFragment mDriverReviewFragment = new DriverReviewFragment();
                 FragmentManager mFragmentManager = getFragmentManager();
                 FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-                mFragmentTransaction.replace(R.id.content_main, mDriverReviewFragment,"driverReviewFragment");
-               // mFragmentTransaction.addToBackStack("getReviewFragment");
+                mFragmentTransaction.replace(R.id.content_main, mDriverReviewFragment);
+                MainActivity.current_fragment="Driver Review";
                 mFragmentTransaction.commit();
             }
         });
@@ -63,5 +66,5 @@ public class GetReviewFragment extends Fragment {
         return view;
     }
 
-
+ 
 }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import feedapp.app.com.feedapp.FeedbackFragment;
+import feedapp.app.com.feedapp.MainActivity;
 import feedapp.app.com.feedapp.R;
 import feedapp.app.com.feedapp.model.ClientDetailList;
 
@@ -49,7 +50,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
                 FragmentManager mFragmentManager=((FragmentActivity) mContext).getSupportFragmentManager();
                 FragmentTransaction mFragmentTransaction=mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.content_main,mFeedbackFragment);
-              //  mFragmentTransaction.addToBackStack("tripIdFragment");
+                MainActivity.current_fragment="Feedback";
                 mFragmentTransaction.commit();
             }
         });

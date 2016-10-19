@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                     Intent mIntent = new Intent(LoginActivity.this, MainActivity.class);
                                     Bundle bundle = new Bundle();
+                                    bundle.putString("contact",contact);
                                     bundle.putParcelableArrayList("ClientDetailList", (ArrayList<? extends Parcelable>) mClientDetailList);
                                     bundle.putParcelableArrayList("GuestDetailList", (ArrayList<? extends Parcelable>) mGuestDetailList);
                                     bundle.putParcelableArrayList("CarDetailList", (ArrayList<? extends Parcelable>) mCarDetailList);
