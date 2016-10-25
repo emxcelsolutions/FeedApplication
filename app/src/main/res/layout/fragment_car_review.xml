@@ -106,6 +106,7 @@
                 android:rating="0"
                 android:stepSize="0.1"
                 style="?android:attr/ratingBarStyleIndicator"
+                android:progressTint="@color/ratingbarColor"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -128,6 +129,7 @@
                 android:rating="0"
                 android:stepSize="0.1"
                 style="?android:attr/ratingBarStyleIndicator"
+                android:progressTint="@color/ratingbarColor"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -150,6 +152,7 @@
                 android:rating="0"
                 android:stepSize="0.1"
                 style="?android:attr/ratingBarStyleIndicator"
+                android:progressTint="@color/ratingbarColor"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -172,6 +175,7 @@
                 android:rating="0"
                 android:stepSize="0.1"
                 style="?android:attr/ratingBarStyleIndicator"
+                android:progressTint="@color/ratingbarColor"
                 android:theme="@style/RatingBar" />
 
             <CustomFont.MyTextViewBold
@@ -192,6 +196,7 @@
                 android:layout_marginRight="@dimen/rating_margin_right"
                 android:numStars="5"
                 style="?android:attr/ratingBarStyleIndicator"
+                android:progressTint="@color/ratingbarColor"
                 android:rating="0"
                 android:stepSize="0.1"
                 android:theme="@style/RatingBar" />
@@ -201,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_left_tvblackcarnumber"
                 android:layout_marginRight="@dimen/margin_right_tvblackcarnumber"
-                android:text="6)AVERAGE RATING"
+                android:text="6) AVERAGE RATING"
                 android:textColor="@color/textblack"
                 android:textSize="@dimen/edittext1_size"
                 android:textStyle="bold" />
@@ -215,8 +220,21 @@
                 android:numStars="5"
                 android:rating="0"
                 style="?android:attr/ratingBarStyleIndicator"
+                android:progressTint="@color/ratingbarColor"
                 android:stepSize="0.1"
                 android:theme="@style/RatingBar" />
+
+            <CustomFont.MyTextViewBlack
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_car_availability"
+                android:layout_marginLeft="@dimen/margin_left_tvblackcarnumber"
+                android:layout_marginRight="@dimen/margin_right_tvblackcarnumber"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/textblack"
+                android:textSize="@dimen/edittext1_size"
+                android:textStyle="bold" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -12,6 +12,12 @@ public class FeedbackList {
     @SerializedName("drivingRating")
     @Expose
     private Double drivingRating;
+    @SerializedName("startDate")
+    @Expose
+    private String startDate;
+    @SerializedName("endDate")
+    @Expose
+    private String endDate;
     @SerializedName("driverBehaviourRating")
     @Expose
     private Double driverBehaviourRating;
@@ -215,6 +221,42 @@ public class FeedbackList {
      */
     public void setClientDetail(Object clientDetail) {
         this.clientDetail = clientDetail;
+    }
+
+    /**
+     *
+     * @return
+     *     The startDate
+     */
+    public String getStartDate() {
+        return startDate;
+    }
+
+    /**
+     *
+     * @param startDate
+     *     The startDate
+     */
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     *
+     * @return
+     *     The endDate
+     */
+    public String getEndDate() {
+        return endDate;
+    }
+
+    /**
+     *
+     * @param endDate
+     *     The endDate
+     */
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
 }

@@ -2,6 +2,8 @@ package feedapp.app.com.feedapp;
 
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -16,9 +18,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,6 +57,7 @@ public class DriverReviewFragment extends Fragment {
     private RatingBar mRbCarCondition;
     private RatingBar mRbOverallService;
     private RatingBar mRbAverageRating;
+    private TextView mTextView_availability;
 
     private String baseURL = "http://192.227.159.120:8080/";
     private APIService mApiService;
@@ -66,7 +71,11 @@ public class DriverReviewFragment extends Fragment {
     private SimpleDateFormat dateFormatter;
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
+    Date from_date,to_date;
+    long total_diff;
 
+    private ProgressDialog pDialog;
+    private Call<DriverTypeByData> mCall;
     public DriverReviewFragment() {
         // Required empty public constructor
     }
@@ -78,50 +87,17 @@ public class DriverReviewFragment extends Fragment {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_driver_review, container, false);
 
-        /*ToDo: settingup retrofit with api */
-        mApiService = LoginActivity.setupRetrofit(baseURL);
-        Call<DriverTypeByData> mCall = mApiService.getDriverTypeByDataCall();
-        Log.e("url", "" + mCall.request().url());
-        mCall.enqueue(new Callback<DriverTypeByData>() {
-            @Override
-            public void onResponse(Call<DriverTypeByData> call, Response<DriverTypeByData> response) {
-                try {
-                    mDriverReviewList = response.body().getDriverDetailList();
-                    final List<String> driverList=new ArrayList<String>();
-                    driverList.add(0,"PLEASE SELECT DRIVER NAME");
-                    for (int i = 0; i < mDriverReviewList.size(); i++) {
-                        driverList.add(mDriverReviewList.get(i).getDriName());
-                    }
-
-                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, driverList);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    mSpinner.setAdapter(adapter);
-                    mSpinner.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            if(!touch)
-                            {
-                                driverList.remove(0);
-                                adapter.notifyDataSetChanged();
-                                touch=true;
-                            }
-                            return false;
-                        }
-                    });
-                } catch (Exception e) {
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DriverTypeByData> call, Throwable t) {
-
-            }
-
-        });
-        
         //TODO intialization() called here
         initialization();
+        mSearch.setEnabled(false);
+
+        /*ToDo: settingup retrofit with api */
+        mApiService = LoginActivity.setupRetrofit(baseURL);
+        mCall = mApiService.getDriverTypeByDataCall();
+        Log.e("url", "" + mCall.request().url());
+        DriverReviewAsyncTask mDriverReviewAsyncTask=new DriverReviewAsyncTask();
+        mDriverReviewAsyncTask.execute();
+
 
         //TODO date picker dialog show method called here
         datePickerShow();
@@ -129,6 +105,12 @@ public class DriverReviewFragment extends Fragment {
         //TODO set date and time method called here
         setDateTimeField();
 
+        /*if(mSpinner_car.getCount()==0){
+            mSerach.setEnabled(false);
+        }
+        else if(mSpinner_car.getCount()!=0){
+            mSerach.setEnabled(true);
+        }*/
         //TODO search button onClick() here
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +124,7 @@ public class DriverReviewFragment extends Fragment {
                     tdate = mTodate.getText().toString();
 
                     if(dateValidation() || (fdate.equals("") && tdate.equals(""))){
+
                         mApiService=LoginActivity.setupRetrofit(baseURL);
                         Map<String, String> data = new HashMap<>();
                         data.put("type","driver");
@@ -158,7 +141,11 @@ public class DriverReviewFragment extends Fragment {
                                 try {
                                     mFeedbackList=response.body().getFeedbackList();
                                     total_trips=mFeedbackList.size();
+                                    if(total_trips==0)
+                                        Toast.makeText(getContext(), "No Reviews Found", Toast.LENGTH_SHORT).show();
                                     float driving=0,d_behaviour=0,d_performance=0,c_condition=0,overallService=0,average=0;
+                                    long available=0;
+                                    SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd");
                                     for(int i=0;i<total_trips;i++)
                                     {
                                         driving+=Float.parseFloat(mFeedbackList.get(i).getDrivingRating().toString());
@@ -167,6 +154,7 @@ public class DriverReviewFragment extends Fragment {
                                         c_condition+=Float.parseFloat(mFeedbackList.get(i).getCarConditionRating().toString());
                                         overallService+=Float.parseFloat(mFeedbackList.get(i).getOverallServiceRating().toString());
                                         average+=Float.parseFloat(mFeedbackList.get(i).getAverageRating().toString());
+                                        available+=(simpleDateFormat.parse(mFeedbackList.get(i).getEndDate().replace("-","/")).getTime()-simpleDateFormat.parse(mFeedbackList.get(i).getStartDate().replace("-","/")).getTime())/(24 * 60 * 60 * 1000)+1;
                                     }
                                     mRbDriving.setRating(driving/total_trips);
                                     mRbDriverBehaviour.setRating(d_behaviour/total_trips);
@@ -174,9 +162,14 @@ public class DriverReviewFragment extends Fragment {
                                     mRbCarCondition.setRating(c_condition/total_trips);
                                     mRbOverallService.setRating(overallService/total_trips);
                                     mRbAverageRating.setRating(average/total_trips);
+                                    if(!(fdate.equals("") && tdate.equals(""))) {
+                                        total_diff = ((to_date.getTime() - from_date.getTime())/(24 * 60 * 60 * 1000))+1;
+                                        long not_available=total_diff-available;
+                                        mTextView_availability.setText("Not Available For " + not_available + " Days Out Of "+ total_diff + " Days");
+                                    }
                                     setOverallFeedback(average/total_trips);
                                 }catch (Exception e) {
-
+                                    Toast.makeText(getContext(), "Sorry..Unable To Get Response..", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -260,6 +253,8 @@ public class DriverReviewFragment extends Fragment {
 
         mRbAverageRating = (RatingBar) mView.findViewById(R.id.mrb_averageRatingDriverSide);
         mRbAverageRating.setIsIndicator(true);
+
+        mTextView_availability=(TextView)mView.findViewById(R.id.tv_driver_availability);
     }
 
     //TODO Date Picker Dialog Here
@@ -302,6 +297,11 @@ public class DriverReviewFragment extends Fragment {
                 newDate.set(year, monthOfYear, dayOfMonth);
                 SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
                 mFromdate.setText(simpleDateFormat.format(newDate.getTime()));
+                try {
+                    from_date=simpleDateFormat.parse(mFromdate.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -313,8 +313,82 @@ public class DriverReviewFragment extends Fragment {
                 newDate.set(year, monthOfYear, dayOfMonth);
                 SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
                 mTodate.setText(simpleDateFormat.format(newDate.getTime()));
+                try {
+                    to_date=simpleDateFormat.parse(mTodate.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+
+    //ToDo: AsyncTask for driverReviewFragment
+    private class DriverReviewAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            mCall.enqueue(new Callback<DriverTypeByData>() {
+                @Override
+                public void onResponse(Call<DriverTypeByData> call, Response<DriverTypeByData> response) {
+                    try {
+                        mDriverReviewList = response.body().getDriverDetailList();
+                        final List<String> driverList=new ArrayList<String>();
+                        driverList.add(0,"PLEASE SELECT DRIVER NAME");
+                        for (int i = 0; i < mDriverReviewList.size(); i++) {
+                            driverList.add(mDriverReviewList.get(i).getDriName());
+                        }
+
+                        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, driverList);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        mSpinner.setAdapter(adapter);
+                        mSearch.setEnabled(true);
+                        mSpinner.setOnTouchListener(new View.OnTouchListener() {
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+                                if(!touch)
+                                {
+                                    driverList.remove(0);
+                                    adapter.notifyDataSetChanged();
+                                    touch=true;
+                                }
+                                return false;
+                            }
+                        });
+                    } catch (Exception e) {
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<DriverTypeByData> call, Throwable t) {
+
+                }
+
+            });
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if(pDialog.isShowing())
+                pDialog.cancel();
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            pDialog = new ProgressDialog(getContext());
+            pDialog.setMessage("Please Wait");
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+
     }
 }

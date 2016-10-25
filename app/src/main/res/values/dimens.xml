@@ -33,7 +33,7 @@
 
     <dimen name="margin_left_edittextbold">25dp</dimen>
     <dimen name="margin_right_edittextbold">20dp</dimen>
-    <dimen name="edittext1_size">17sp</dimen>
+    <dimen name="edittext1_size">15sp</dimen>
     <dimen name="margin_top_edittextbold">10dp</dimen>
 
     <!--Main RatinBar For landscap activity_car_number && activity_driver_review_screen-->

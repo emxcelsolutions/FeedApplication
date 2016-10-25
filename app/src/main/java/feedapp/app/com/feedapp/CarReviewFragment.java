@@ -2,6 +2,8 @@ package feedapp.app.com.feedapp;
 //Car Fragment
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,8 +20,10 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,6 +57,7 @@ public class CarReviewFragment extends Fragment {
     private RatingBar mRbOverallService;
     private RatingBar mRbAverageRating;
     private Spinner mSpinner_car;
+    private TextView mTextView_availability;
 
     private ScrollView mScrollView;
     private String baseURL = "http://192.227.159.120:8080/";
@@ -67,7 +72,12 @@ public class CarReviewFragment extends Fragment {
     private SimpleDateFormat dateFormatter;
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
+    Date from_date,to_date;
+    long total_diff;
+    long available;
 
+    private ProgressDialog mDialog;
+    private Call<CarTypeByData> mCall;
     public CarReviewFragment() {
         // Required empty public constructor
     }
@@ -78,51 +88,17 @@ public class CarReviewFragment extends Fragment {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_car_review, container, false);
 
+        //TODO intialization() called here
+        initialization();
+        mSerach.setEnabled(false);
+
         /*ToDo: settingup retrofit with api */
         mApiService = LoginActivity.setupRetrofit(baseURL);
 
-        Call<CarTypeByData> mCall = mApiService.getCarTypeByDataCall();
+        mCall = mApiService.getCarTypeByDataCall();
         Log.e("url", "" + mCall.request().url());
-        mCall.enqueue(new Callback<CarTypeByData>() {
-            @Override
-            public void onResponse(Call<CarTypeByData> call, Response<CarTypeByData> response) {
-                try {
-
-                    mCarReviewList = response.body().getCarDetailList();
-                    final List<String> carList = new ArrayList<String>();
-                    carList.add(0, "PLEASE SELECT CAR NUMBER");
-
-                    for (int i = 0; i < mCarReviewList.size(); i++) {
-                        carList.add(mCarReviewList.get(i).getCarNo());
-                    }
-                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, carList);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    mSpinner_car.setAdapter(adapter);
-                    mSpinner_car.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            if (!touch) {
-                                carList.remove(0);
-                                adapter.notifyDataSetChanged();
-                                touch = true;
-                            }
-                            return false;
-                        }
-                    });
-                } catch (Exception e) {
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CarTypeByData> call, Throwable t) {
-
-            }
-
-        });
-
-        //TODO intialization() called here
-        initialization();
+        CarReviewAsyncTask mCarReviewAsyncTask=new CarReviewAsyncTask();
+        mCarReviewAsyncTask.execute();
 
         //TODO date picker dialog show method called here
         datePickerShow();
@@ -130,10 +106,18 @@ public class CarReviewFragment extends Fragment {
         //TODO set date and time method called here
         setDateTimeField();
 
+        /*if(mSpinner_car.getCount()==0){
+            mSerach.setEnabled(false);
+        }
+        else if(mSpinner_car.getCount()!=0){
+            mSerach.setEnabled(true);
+        }*/
+
         //TODO search button onClick() here
         mSerach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //TODO date validation method called here
                 String sp_selected = mSpinner_car.getSelectedItem().toString();
                 mOverallFeedback.setText("OVERALL FEEDBACK");
@@ -159,7 +143,11 @@ public class CarReviewFragment extends Fragment {
                                 try {
                                     mFeedbackList = response.body().getFeedbackList();
                                     total_trips = mFeedbackList.size();
+                                    if(total_trips==0)
+                                        Toast.makeText(getContext(), "No Reviews Found", Toast.LENGTH_SHORT).show();
                                     float driving = 0, d_behaviour = 0, d_performance = 0, c_condition = 0, overallService = 0, average = 0;
+                                    long available=0;
+                                    SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd");
                                     for (int i = 0; i < total_trips; i++) {
                                         driving += Float.parseFloat(mFeedbackList.get(i).getDrivingRating().toString());
                                         d_behaviour += Float.parseFloat(mFeedbackList.get(i).getDriverBehaviourRating().toString());
@@ -167,6 +155,7 @@ public class CarReviewFragment extends Fragment {
                                         c_condition += Float.parseFloat(mFeedbackList.get(i).getCarConditionRating().toString());
                                         overallService += Float.parseFloat(mFeedbackList.get(i).getOverallServiceRating().toString());
                                         average += Float.parseFloat(mFeedbackList.get(i).getAverageRating().toString());
+                                        available+=(simpleDateFormat.parse(mFeedbackList.get(i).getEndDate().replace("-","/")).getTime()-simpleDateFormat.parse(mFeedbackList.get(i).getStartDate().replace("-","/")).getTime())/(24 * 60 * 60 * 1000)+1;
                                     }
                                     mRbDriving.setRating(driving / total_trips);
                                     mRbDriverBehaviour.setRating(d_behaviour / total_trips);
@@ -174,9 +163,14 @@ public class CarReviewFragment extends Fragment {
                                     mRbCarCondition.setRating(c_condition / total_trips);
                                     mRbOverallService.setRating(overallService / total_trips);
                                     mRbAverageRating.setRating(average / total_trips);
+                                    if(!(fdate.equals("") && tdate.equals(""))) {
+                                        total_diff = ((to_date.getTime() - from_date.getTime())/(24 * 60 * 60 * 1000))+1;
+                                        long not_available=total_diff-available;
+                                        mTextView_availability.setText("Not Available For " + not_available + " Days Out Of "+ total_diff + "Days");
+                                    }
                                     setOverallFeedback(average / total_trips);
                                 } catch (Exception e) {
-
+                                    Toast.makeText(getContext(), "Sorry..Unable To Get Response..", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -261,6 +255,8 @@ public class CarReviewFragment extends Fragment {
 
         mRbAverageRating = (RatingBar) mView.findViewById(R.id.mrb_averageRating);
         mRbAverageRating.setIsIndicator(true);
+
+        mTextView_availability=(TextView)mView.findViewById(R.id.tv_car_availability);
     }
 
     //TODO Date Picker Dialog Here
@@ -301,6 +297,11 @@ public class CarReviewFragment extends Fragment {
                 newDate.set(year, monthOfYear, dayOfMonth);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 mFromdate.setText(simpleDateFormat.format(newDate.getTime()));
+                try {
+                    from_date=simpleDateFormat.parse(mFromdate.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -312,10 +313,82 @@ public class CarReviewFragment extends Fragment {
                 newDate.set(year, monthOfYear, dayOfMonth);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 mTodate.setText(simpleDateFormat.format(newDate.getTime()));
+                try {
+                    to_date=simpleDateFormat.parse(mTodate.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
 
+    //ToDo: AsyncTask for carReviewFragment
+    private class CarReviewAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            mCall.enqueue(new Callback<CarTypeByData>() {
+                @Override
+                public void onResponse(Call<CarTypeByData> call, Response<CarTypeByData> response) {
+                    try {
+
+                        mCarReviewList = response.body().getCarDetailList();
+                        final List<String> carList = new ArrayList<String>();
+                        carList.add(0, "PLEASE SELECT CAR NUMBER");
+
+                        for (int i = 0; i < mCarReviewList.size(); i++) {
+                            carList.add(mCarReviewList.get(i).getCarNo());
+                        }
+                        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, carList);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        mSpinner_car.setAdapter(adapter);
+                        mSerach.setEnabled(true);
+                        mSpinner_car.setOnTouchListener(new View.OnTouchListener() {
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+                                if (!touch) {
+                                    carList.remove(0);
+                                    adapter.notifyDataSetChanged();
+                                    touch = true;
+                                }
+                                return false;
+                            }
+                        });
+                    } catch (Exception e) {
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CarTypeByData> call, Throwable t) {
+
+                }
+
+            });
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if(mDialog.isShowing())
+                mDialog.cancel();
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            mDialog = new ProgressDialog(getContext());
+            mDialog.setMessage("Please Wait");
+            mDialog.setCancelable(false);
+            mDialog.show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+
+    }
 }
