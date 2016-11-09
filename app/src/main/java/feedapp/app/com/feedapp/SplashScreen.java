@@ -18,7 +18,9 @@ public class SplashScreen extends Activity {
             public void run() {
                 try {
                     sleep(3000);
-                    startActivity(new Intent(SplashScreen.this, LoginActivity.class));
+/*                    startActivity(new Intent(SplashScreen.this, LoginActivity.class));
+                    finish();*/
+                    startActivity(new Intent(SplashScreen.this, GetReviews.class));
                     finish();
 
                 } catch (Exception e) {

@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/colorLightPista"
-    tools:context="feedapp.app.com.feedapp.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:context="feedapp.app.com.feedapp.MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mRecyclerView_tripid"

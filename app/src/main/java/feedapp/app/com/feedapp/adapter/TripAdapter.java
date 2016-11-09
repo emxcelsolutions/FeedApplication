@@ -49,8 +49,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
                 mFeedbackFragment.setArguments(bundle);
                 FragmentManager mFragmentManager=((FragmentActivity) mContext).getSupportFragmentManager();
                 FragmentTransaction mFragmentTransaction=mFragmentManager.beginTransaction();
-                mFragmentTransaction.replace(R.id.content_main,mFeedbackFragment);
-                MainActivity.current_fragment="Feedback";
+                mFragmentTransaction.replace(R.id.getreviewfragment,mFeedbackFragment);
                 mFragmentTransaction.commit();
             }
         });

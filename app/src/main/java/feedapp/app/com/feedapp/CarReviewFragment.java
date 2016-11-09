@@ -3,6 +3,7 @@ package feedapp.app.com.feedapp;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -58,6 +59,7 @@ public class CarReviewFragment extends Fragment {
     private RatingBar mRbAverageRating;
     private Spinner mSpinner_car;
     private TextView mTextView_availability;
+    private ImageView mImageView;
 
     private ScrollView mScrollView;
     private String baseURL = "http://192.227.159.120:8080/";
@@ -191,6 +193,14 @@ public class CarReviewFragment extends Fragment {
             }
         });
 
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),GetReviews.class));
+                getActivity().finish();
+            }
+        });
+
         return mView;
     }
 
@@ -257,6 +267,7 @@ public class CarReviewFragment extends Fragment {
         mRbAverageRating.setIsIndicator(true);
 
         mTextView_availability=(TextView)mView.findViewById(R.id.tv_car_availability);
+        mImageView=(ImageView) mView.findViewById(R.id.toolbar_leftArrow);
     }
 
     //TODO Date Picker Dialog Here

@@ -2,18 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="feedapp.app.com.feedapp">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
-        android:label="FEED APP"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:label="FEED APP"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
-            android:configChanges="orientation|screenSize"
             android:name=".SplashScreen"
+            android:configChanges="orientation|screenSize"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,12 +22,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:configChanges="orientation|screenSize"
             android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:configChanges="orientation|screenSize"
             android:name=".LoginActivity"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver android:name=".util.NetworkStateReceiver">
@@ -35,10 +35,15 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <activity android:name=".NoInternetFragment"
-            android:theme="@style/AppTheme.NoActionBar">
 
-        </activity>
+        <activity
+            android:name=".NoInternetFragment"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".GetReviews"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

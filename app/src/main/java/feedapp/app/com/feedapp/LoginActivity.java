@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                         mAPIService = setupRetrofit(baseURL);
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("contactNo", contact);
-                         mCall = mAPIService.getClientInfoCall(params);
+                        mCall = mAPIService.getClientInfoCall(params);
                         Log.e("url", "" + mCall.request().url());
                         LoginAsyncTask loginAsyncTask = new LoginAsyncTask();
                         loginAsyncTask.execute();

@@ -9,6 +9,8 @@ import feedapp.app.com.feedapp.model.ClientInfo;
 import feedapp.app.com.feedapp.model.DriverReviewFragmentResponse.DriverTypeByData;
 import feedapp.app.com.feedapp.model.DriverReviewFragmentResponse.SearchDriverName;
 import feedapp.app.com.feedapp.model.feedbackresponse.FeedbackResponse;
+import feedapp.app.com.feedapp.model.loginModel.LoginValidation;
+import feedapp.app.com.feedapp.model.tokenModel.TokenValidation;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
@@ -39,6 +41,16 @@ public interface APIService {
 
     @GET("endsystem/getTypeByFeedbackData")
     Call<SearchDriverName> getSearchDriverNameCall(
+            @QueryMap Map<String,String> params
+    );
+
+    @GET("endsystem/getValidContactNo")
+    Call<LoginValidation> getLoginValidationCall(
+            @QueryMap Map<String,String> params
+    );
+
+    @GET("endsystem/updateTokenFCMWithContactNo")
+    Call<TokenValidation> getTokenValidationCall(
             @QueryMap Map<String,String> params
     );
 
